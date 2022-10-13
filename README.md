@@ -1,6 +1,7 @@
-# schreckski.com canary
+# My Synthetics canaries #
 
-This canary exists to notify me if anything happens to https://schreckski.com, which I run for my friend.
+This is a CDK package that sets up several canaries for web properties I own and manage.
+The canaries will notify me if these properties go down or break.
 
 I use AWS CloudWatch Synthetics as my canary technology, and AWS CDK for deployment.
 

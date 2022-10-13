@@ -1,7 +1,7 @@
 {
   "extends": "@tsconfig/node14/tsconfig.json",
   "compilerOptions": {
-    "outDir": "../canary-dist/nodejs/node_modules/MainCanary",
+    "outDir": "../canary-dist/nodejs/node_modules/SchreckCanary",
     "declaration": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
