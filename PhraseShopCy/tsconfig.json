@@ -1,7 +1,7 @@
 {
   "extends": "@tsconfig/node14/tsconfig.json",
   "compilerOptions": {
-    "outDir": "../schreck-canary-dist/nodejs/node_modules/SchreckCanary",
+    "outDir": "../phraseshop-canary-dist/nodejs/node_modules/PhraseShopCy",
     "declaration": true,
     "noImplicitAny": true,
     "strictNullChecks": true,

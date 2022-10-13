@@ -7,7 +7,9 @@
   },
   "scripts": {
     "build": "tsc",
-    "build-canary": "cd SchreckCanary && npm run build",
+    "build-schreck-canary": "cd SchreckCanary && npm run build",
+    "build-phraseshop-canary": "cd PhraseShopCy && npm run build",
+    "build-canaries": "npm run build-schreck-canary && npm run build-phraseshop-canary",
     "watch": "tsc -w",
     "cdk": "cdk"
   },

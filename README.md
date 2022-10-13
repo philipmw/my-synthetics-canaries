@@ -11,7 +11,7 @@ This is one git repository with two node packages, one nested in the other.
 Both are individual node projects, with their own dependencies and build process.
 
 1. in root package, a TypeScript node package with CDK for infrastructure-as-code.
-2. in `MainCanary`, a TypeScript node package for the NodeJS/Puppeteer canary.
+2. in `PhraseShopCanary` and `SchreckCanaries`, TypeScript node packages for the NodeJS/Puppeteer canary.
 
 This CDK deploys the canary code to AWS and creates a supporting alarm.
 
@@ -21,7 +21,7 @@ One-time: set project-specific settings in CDK context:
 
     echo '{ "alarmEmailAddress": "<YOUR-EMAIL-ADDRESS>" }' > cdk.context.json
 
-* Build canary: `npm run build-canary`
+* Build canary: `npm run build-canaries`
 * Build CDK: `npm run build`
 
 ## Deploying to AWS

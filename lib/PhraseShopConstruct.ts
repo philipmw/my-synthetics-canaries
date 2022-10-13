@@ -8,7 +8,7 @@ import {Canary, Runtime, Test} from "@aws-cdk/aws-synthetics-alpha";
 
 const CANARY_PERIOD = Duration.minutes(15);
 
-export class SchreckConstruct extends Construct {
+export class PhraseShopConstruct extends Construct {
   public alarm: Alarm;
 
   constructor(scope: Construct, id: string) {
@@ -17,15 +17,15 @@ export class SchreckConstruct extends Construct {
     const canary = new Canary(this, 'Canary', {
       schedule: Schedule.rate(CANARY_PERIOD),
       test: Test.custom({
-        code: Code.fromAsset(path.join(__dirname, '../schreck-canary-dist')),
-        handler: 'SchreckCanary.handler',
+        code: Code.fromAsset(path.join(__dirname, '../phraseshop-canary-dist')),
+        handler: 'PhraseShopCy.handler',
       }),
       // NodeJS/Puppeteer 3.5 runtime provides puppeteer-core 10.1.0, according to AWS documentation.
       // if you change the runtime, change the version(s) in `package.json`.
       runtime: Runtime.SYNTHETICS_NODEJS_PUPPETEER_3_5,
       timeToLive: Duration.minutes(1),
       environmentVariables: {
-        SITE_URL: "https://schreckski.com",
+        SITE_URL: "https://phrase.shop",
       },
     });
 

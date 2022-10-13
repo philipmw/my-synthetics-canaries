@@ -5,16 +5,21 @@ import {AlarmRule, CompositeAlarm} from "aws-cdk-lib/aws-cloudwatch";
 import {Topic} from "aws-cdk-lib/aws-sns";
 import {EmailSubscription} from "aws-cdk-lib/aws-sns-subscriptions";
 
+import {PhraseShopConstruct} from "./PhraseShopConstruct";
 import {SchreckConstruct} from "./SchreckConstruct";
 
 export class MyCanariesStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
+    const phraseshop = new PhraseShopConstruct(this, "PhraseShop");
     const schreck = new SchreckConstruct(this, "Schreck");
 
     const allCanariesAlarm = new CompositeAlarm(this, "AllCanariesAlarm", {
-      alarmRule: AlarmRule.anyOf(schreck.alarm),
+      alarmRule: AlarmRule.anyOf(
+        phraseshop.alarm,
+        schreck.alarm,
+      ),
     });
 
     const alarmSnsTopic = new Topic(this, 'AlarmSnsTopic');
