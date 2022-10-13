@@ -25,7 +25,11 @@ const pageLoadBlueprint = async function () {
     throw new Error("Unexpected page title")
   }
 
-  await page.waitForSelector("div#entropy");
+  // Wait for the first phrase to get generated
+  await page.waitForTimeout(5000);
+
+  const firstPhraseText = await page.$eval("div#phrase-inner", (el: Element) => el.textContent);
+  log.info(`First phrase: ${firstPhraseText}`);
 };
 
 exports.handler = async () => {

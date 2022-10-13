@@ -23,7 +23,6 @@ export class PhraseShopConstruct extends Construct {
       // NodeJS/Puppeteer 3.5 runtime provides puppeteer-core 10.1.0, according to AWS documentation.
       // if you change the runtime, change the version(s) in `package.json`.
       runtime: Runtime.SYNTHETICS_NODEJS_PUPPETEER_3_5,
-      timeToLive: Duration.minutes(1),
       environmentVariables: {
         SITE_URL: "https://phrase.shop",
       },
