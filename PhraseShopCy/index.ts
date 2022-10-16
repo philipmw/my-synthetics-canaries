@@ -28,8 +28,12 @@ const pageLoadBlueprint = async function () {
   // Wait for the first phrase to get generated
   await page.waitForTimeout(5000);
 
-  const firstPhraseText = await page.$eval("div#phrase-inner", (el: Element) => el.textContent);
+  const firstPhraseText: string = await page.$eval("div#phrase-inner", (el: Element) => el.textContent);
   log.info(`First phrase: ${firstPhraseText}`);
+  const firstPhraseWords = firstPhraseText.split(' ');
+  if (firstPhraseWords.length != 4) {
+    throw new Error(`First phrase was expected to have 4 words, but had ${firstPhraseWords.length} instead`);
+  }
 };
 
 exports.handler = async () => {
