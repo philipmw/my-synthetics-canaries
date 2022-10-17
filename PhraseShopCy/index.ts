@@ -1,5 +1,21 @@
+import {Page} from "puppeteer-core/lib/esm/puppeteer/common/Page";
+
 const synthetics = require('Synthetics');
 const log = require('SyntheticsLogger');
+
+async function generateSimplePhrase(page: Page): Promise<void> {
+  // Regenerate the simplest phrase
+  await page.click("button#template-small");
+  // wait for the re-generation to complete
+  await page.waitForSelector("div#phrase span.plain");
+  return Promise.resolve();
+}
+
+async function readPhrase(page: Page): Promise<string|null> {
+  // wait for phrase to be available
+  await page.waitForSelector("div#phrase span.plain");
+  return page.$eval("div#phrase-inner", (el: Element) => el.textContent);
+}
 
 const pageLoadBlueprint = async function () {
   // Configure the stage of the API using environment variables
@@ -10,8 +26,8 @@ const pageLoadBlueprint = async function () {
     waitUntil: 'domcontentloaded',
     timeout: 30000,
   });
-  // Wait for page to render. Increase or decrease wait time based on endpoint being monitored.
-  await page.waitForTimeout(15000);
+  // Wait for page to render.
+  await page.waitForTimeout(1000);
 
   if (response.status() !== 200) {
     throw 'Failed to load page!';
@@ -25,15 +41,33 @@ const pageLoadBlueprint = async function () {
     throw new Error("Unexpected page title")
   }
 
-  // Wait for the first phrase to get generated
-  await page.waitForTimeout(5000);
-
-  const firstPhraseText: string = await page.$eval("div#phrase-inner", (el: Element) => el.textContent);
+  const firstPhraseText = await readPhrase(page);
   log.info(`First phrase: ${firstPhraseText}`);
-  const firstPhraseWords = firstPhraseText.split(' ');
+  if (firstPhraseText == null) {
+    throw new Error("Could not find the first phrase");
+  }
+  const firstPhraseWords = firstPhraseText.trim().split(' ');
   if (firstPhraseWords.length != 4) {
     throw new Error(`First phrase was expected to have 4 words, but had ${firstPhraseWords.length} instead`);
   }
+
+  await generateSimplePhrase(page);
+
+  const secondPhraseText = await readPhrase(page);
+  log.info(`Second phrase: ${secondPhraseText}`);
+  if (secondPhraseText == null) {
+    throw new Error("Could not find the first phrase");
+  }
+
+  if (firstPhraseText === secondPhraseText) {
+    throw new Error("Second phrase matches the first phrase");
+  }
+
+  const secondPhraseWords = secondPhraseText.trim().split(' ');
+  if (secondPhraseWords.length != 4) {
+    throw new Error(`Second phrase was expected to have 4 words, but had ${secondPhraseWords.length} instead`);
+  }
+
 };
 
 exports.handler = async () => {
