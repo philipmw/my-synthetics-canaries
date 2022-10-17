@@ -7,4 +7,8 @@ node_modules
 .cdk.staging
 cdk.out
 
+# canary build dir
+/dist
+
+# IntelliJ IDEA
 /.idea

@@ -17,7 +17,7 @@ export class PhraseShopConstruct extends Construct {
     const canary = new Canary(this, 'Canary', {
       schedule: Schedule.rate(CANARY_PERIOD),
       test: Test.custom({
-        code: Code.fromAsset(path.join(__dirname, '../phraseshop-canary-dist')),
+        code: Code.fromAsset(path.join(__dirname, '../dist/phraseshop-canary')),
         handler: 'PhraseShopCy.handler',
       }),
       // NodeJS/Puppeteer 3.5 runtime provides puppeteer-core 10.1.0, according to AWS documentation.
