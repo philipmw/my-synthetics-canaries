@@ -24,10 +24,8 @@ const pageLoadBlueprint = async function () {
   const page = await synthetics.getPage();
   const response = await page.goto(url, {
     waitUntil: 'domcontentloaded',
-    timeout: 30000,
+    timeout: 10000,
   });
-  // Wait for page to render.
-  await page.waitForTimeout(1000);
 
   if (response.status() !== 200) {
     throw 'Failed to load page!';

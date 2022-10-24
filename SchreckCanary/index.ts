@@ -8,10 +8,8 @@ const pageLoadBlueprint = async function () {
   const page = await synthetics.getPage();
   const response = await page.goto(url, {
     waitUntil: 'domcontentloaded',
-    timeout: 30000,
+    timeout: 10000,
   });
-  // Wait for page to render. Increase or decrease wait time based on endpoint being monitored.
-  await page.waitForTimeout(15000);
 
   if (response.status() !== 200) {
     throw 'Failed to load page!';
