@@ -7,13 +7,13 @@ async function generateSimplePhrase(page: Page): Promise<void> {
   // Regenerate the simplest phrase
   await page.click("button#template-small");
   // wait for the re-generation to complete
-  await page.waitForSelector("div#phrase span.plain");
+  await page.waitForSelector("div#phrase.generated");
   return Promise.resolve();
 }
 
 async function readPhrase(page: Page): Promise<string|null> {
   // wait for phrase to be available
-  await page.waitForSelector("div#phrase span.plain");
+  await page.waitForSelector("div#phrase.generated");
   return page.$eval("div#phrase-inner", (el: Element) => el.textContent);
 }
 
