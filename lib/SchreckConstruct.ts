@@ -6,7 +6,7 @@ import {Code} from "aws-cdk-lib/aws-lambda";
 import * as path from "path";
 import {Canary, Runtime, Test} from "@aws-cdk/aws-synthetics-alpha";
 
-const CANARY_PERIOD = Duration.minutes(15);
+const CANARY_PERIOD = Duration.minutes(30);
 
 export class SchreckConstruct extends Construct {
   public alarm: Alarm;
