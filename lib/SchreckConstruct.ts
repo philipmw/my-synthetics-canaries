@@ -20,9 +20,9 @@ export class SchreckConstruct extends Construct {
         code: Code.fromAsset(path.join(__dirname, '../dist/schreck-canary')),
         handler: 'SchreckCanary.handler',
       }),
-      // NodeJS/Puppeteer 3.6 runtime provides puppeteer-core 10.1.0, according to AWS documentation.
+      // NodeJS/Puppeteer 3.8 runtime provides puppeteer-core 10.1.0, according to AWS documentation.
       // if you change the runtime, change the version(s) in `package.json`.
-      runtime: Runtime.SYNTHETICS_NODEJS_PUPPETEER_3_6,
+      runtime: Runtime.SYNTHETICS_NODEJS_PUPPETEER_3_8,
       environmentVariables: {
         SITE_URL: "https://schreckski.com",
       },
